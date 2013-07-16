@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.ItemClick;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
@@ -24,34 +27,49 @@ public class MainActivity extends Activity {
 	TextView textResult;
 	
 	@ViewById
-	EditText editNumIterations;
+	ListView listViewResults;
 	
 	@ViewById
-	Button buttonFire;
+	Button btCalculate;
 	
+	TwoLineAdapter listAdapter;
 	
-	@Click(R.id.buttonFire)
+	@AfterViews
+	void assignAdapter() {
+		// Executed after the views were injected
+		listAdapter = new TwoLineAdapter(this);
+		listViewResults.setAdapter(listAdapter);
+	}
+	
+	@Click(R.id.btCalculate)
 	void buttonClick() {
-		int numIterations = Integer.valueOf(editNumIterations.getText().toString());
-		calculatePi(numIterations);
+		setProgressBarIndeterminateVisibility(true);
+		calculatePi();
 	}
 	
 	@Background
-	void calculatePi(int numIterations) {
-		showProgressBar();
-		double pi = Pi.calcPi(numIterations);
-		showResult(pi);
+	void calculatePi() {
+		for (int i = 100000; i < 1000000; i+=10000) {
+			Result result = Pi.calcPi(i);
+			showResult(result);
+		}
+		hideProgressBar();
 	}
 
 	@UiThread
-	void showResult(double pi) {
-		textResult.setText(String.valueOf(pi));
-		setProgressBarIndeterminateVisibility(false);
+	void showResult(Result result) {
+		listAdapter.add(result);
+		listAdapter.notifyDataSetChanged();
 	}
 	
 	@UiThread
-	void showProgressBar() {
-		setProgressBarIndeterminateVisibility(true);
+	void hideProgressBar() {
+		setProgressBarIndeterminateVisibility(false);
+	}
+	
+	@ItemClick
+	void listViewResultsItemClicked(Result item) {
+		Toast.makeText(this, String.valueOf(item.pi), Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
@@ -59,6 +77,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_main);
+		getActionBar().setDisplayShowTitleEnabled(false);
 	}
 
 	@Override

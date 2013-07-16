@@ -12,37 +12,35 @@
         android:id="@+id/textHello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pi berechnen" />
-
-    <EditText
-        android:id="@+id/editNumIterations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textHello"
-        android:layout_marginTop="18dp"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
+        android:text="Monte-Carlo (100k - 1.000k)"
+        android:textSize="24sp" />
 
     <Button
-        android:id="@+id/buttonFire"
-        android:layout_width="wrap_content"
+        android:id="@+id/btCalculate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textHello"
-        android:layout_alignRight="@+id/editNumIterations"
-        android:layout_below="@+id/editNumIterations"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="16dp"
-        android:text="Feuer" />
+        android:text="Berechnen" />
 
     <TextView
         android:id="@+id/textResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonFire"
-        android:layout_below="@+id/buttonFire"
+        android:layout_alignLeft="@+id/btCalculate"
+        android:layout_below="@+id/btCalculate"
         android:layout_marginTop="22dp" />
+
+    <ListView
+        android:id="@+id/listViewResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btCalculate"
+        android:layout_alignLeft="@+id/textHello"
+        android:layout_below="@+id/textHello"
+        android:layout_marginTop="8dp" >
+
+    </ListView>
 
 </RelativeLayout>

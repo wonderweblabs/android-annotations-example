@@ -14,10 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
-import com.example.androidannotationsplaygroud.R.id;
 import com.googlecode.androidannotations.api.BackgroundExecutor;
 
 public final class MainActivity_
@@ -36,12 +37,12 @@ public final class MainActivity_
     }
 
     private void afterSetContentView_() {
-        textResult = ((TextView) findViewById(id.textResult));
-        textHello = ((TextView) findViewById(id.textHello));
-        buttonFire = ((Button) findViewById(id.buttonFire));
-        editNumIterations = ((EditText) findViewById(id.editNumIterations));
+        textHello = ((TextView) findViewById(com.example.androidannotationsplaygroud.R.id.textHello));
+        btCalculate = ((Button) findViewById(com.example.androidannotationsplaygroud.R.id.btCalculate));
+        listViewResults = ((ListView) findViewById(com.example.androidannotationsplaygroud.R.id.listViewResults));
+        textResult = ((TextView) findViewById(com.example.androidannotationsplaygroud.R.id.textResult));
         {
-            View view = findViewById(id.buttonFire);
+            View view = findViewById(com.example.androidannotationsplaygroud.R.id.btCalculate);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
@@ -55,6 +56,22 @@ public final class MainActivity_
                 );
             }
         }
+        {
+            AdapterView<?> view = ((AdapterView<?> ) findViewById(com.example.androidannotationsplaygroud.R.id.listViewResults));
+            if (view!= null) {
+                view.setOnItemClickListener(new OnItemClickListener() {
+
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        listViewResultsItemClicked(((Result) parent.getAdapter().getItem(position)));
+                    }
+
+                }
+                );
+            }
+        }
+        assignAdapter();
     }
 
     @Override
@@ -80,14 +97,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void showResult(final double pi) {
+    public void hideProgressBar() {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.showResult(pi);
+                    MainActivity_.super.hideProgressBar();
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -98,14 +115,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void showProgressBar() {
+    public void showResult(final Result result) {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.showProgressBar();
+                    MainActivity_.super.showResult(result);
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -116,14 +133,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void calculatePi(final int numIterations) {
+    public void calculatePi() {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.calculatePi(numIterations);
+                    MainActivity_.super.calculatePi();
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
