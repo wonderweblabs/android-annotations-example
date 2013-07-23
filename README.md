@@ -3,4 +3,4 @@ android-annotations-example
 
 Example application for the android annotations blog post in the wonderweblabs blog. This repository contains two eclipse android projects - "pi-calculate-before" as project without android annotations and "pi-calculate-after" with android annotations.
 
-Blog post (german): 
+Blog post (german): http://blog.wonderweblabs.com/blog/2013/07/23/androidannotations/
