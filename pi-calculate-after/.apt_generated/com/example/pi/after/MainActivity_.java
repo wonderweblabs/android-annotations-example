@@ -3,7 +3,7 @@
 //
 
 
-package com.example.androidannotationsplaygroud;
+package com.example.pi.after;
 
 import android.app.Activity;
 import android.content.Context;
@@ -36,10 +36,10 @@ public final class MainActivity_
     }
 
     private void afterSetContentView_() {
-        btCalculate = ((Button) findViewById(com.example.androidannotationsplaygroud.R.id.btCalculate));
-        listViewResults = ((ListView) findViewById(com.example.androidannotationsplaygroud.R.id.listViewResults));
+        btCalculate = ((Button) findViewById(com.example.pi.after.R.id.btCalculate));
+        listViewResults = ((ListView) findViewById(com.example.pi.after.R.id.listViewResults));
         {
-            View view = findViewById(com.example.androidannotationsplaygroud.R.id.btCalculate);
+            View view = findViewById(com.example.pi.after.R.id.btCalculate);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
@@ -54,7 +54,7 @@ public final class MainActivity_
             }
         }
         {
-            AdapterView<?> view = ((AdapterView<?> ) findViewById(com.example.androidannotationsplaygroud.R.id.listViewResults));
+            AdapterView<?> view = ((AdapterView<?> ) findViewById(com.example.pi.after.R.id.listViewResults));
             if (view!= null) {
                 view.setOnItemClickListener(new OnItemClickListener() {
 
